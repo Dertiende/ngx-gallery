@@ -186,8 +186,10 @@ export class GalleryThumbsComponent implements AfterViewInit, AfterViewChecked, 
 
   private scrollToIndex(value: number, behavior): void {
     this._zone.runOutsideAngular(() => {
+      // @ts-ignore
       this.slider.style.scrollSnapType = 'unset';
       this._smoothScroll.scrollTo(this.slider, this.adapter.getCentralisedScrollToValue(value, behavior)).then(() => {
+        // @ts-ignore
         this.slider.style.scrollSnapType = this.adapter.scrollSnapType;
       });
     });
@@ -219,12 +221,14 @@ export class GalleryThumbsComponent implements AfterViewInit, AfterViewChecked, 
         this._hammer.on('panstart', () => {
           panOffset = this.adapter.scrollValue;
           // Disable scroll-snap-type functionality
+          // @ts-ignore
           this.slider.style.scrollSnapType = 'unset';
           this.slider.classList.add('g-sliding');
         });
         this._hammer.on('panmove', (e) => this.slider.scrollTo(this.adapter.getPanValue(panOffset, e, 'auto')));
         this._hammer.on('panend', () => {
           // Enable scroll-snap-type functionality
+          // @ts-ignore
           this.slider.style.scrollSnapType = this.adapter.scrollSnapType;
           this.slider.classList.remove('g-sliding');
         });

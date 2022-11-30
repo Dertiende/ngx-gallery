@@ -161,13 +161,13 @@ export class GalleryComponent implements OnInit, OnChanges, OnDestroy {
     this._playerListener$ = this.galleryRef.activatePlayer().subscribe();
 
     // Subscribes to events on demand
-    if (this.indexChange.observed) {
+    if (this.indexChange.observers.length) {
       this._indexChange$ = this.galleryRef.indexChanged.subscribe((state: GalleryState) => this.indexChange.emit(state));
     }
-    if (this.itemsChange.observed) {
+    if (this.itemsChange.observers.length) {
       this._itemChange$ = this.galleryRef.itemsChanged.subscribe((state: GalleryState) => this.itemsChange.emit(state));
     }
-    if (this.playingChange.observed) {
+    if (this.playingChange.observers.length) {
       this._playingChange$ = this.galleryRef.playingChanged.subscribe((state: GalleryState) => this.playingChange.emit(state));
     }
 

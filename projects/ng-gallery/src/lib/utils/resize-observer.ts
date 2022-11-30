@@ -1,11 +1,15 @@
-import { Observable, Subscriber } from 'rxjs';
+import { Observable} from 'rxjs';
+import ResizeObserver from 'resize-observer-polyfill';
 
-export function resizeObservable(el: HTMLElement): Observable<ResizeObserverEntry[]> {
-  return new Observable((subscriber: Subscriber<ResizeObserverEntry[]>) => {
-    const resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => subscriber.next(entries));
-    resizeObserver.observe(el);
-    return function unsubscribe() {
-      resizeObserver.disconnect();
-    };
-  });
+export function resizeObservable(elem: HTMLElement) {
+    return new Observable(subscriber => {
+        var ro = new ResizeObserver(entries => {
+            subscriber.next(entries);
+        });
+        // Observe one or multiple elements
+        ro.observe(elem);
+        return function unsubscribe() {
+            ro.unobserve(elem);
+        }
+    });
 }

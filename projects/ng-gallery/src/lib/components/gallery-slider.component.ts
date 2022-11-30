@@ -133,6 +133,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
         tap(() => {
           const index: number = this.adapter.measureIndex;
           // Check if the index value has no fraction
+          // @ts-ignore
           this.slider.style.scrollSnapType = this.adapter.scrollSnapType;
           if (Number.isSafeInteger(index)) {
             this._zone.run(() => this._gallery.ref(this.galleryId).set(index));
@@ -170,8 +171,10 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
 
   private scrollToIndex(value: number, behavior: ScrollBehavior): void {
     this._zone.runOutsideAngular(() => {
+      // @ts-ignore
       this.slider.style.scrollSnapType = 'unset';
       this._smoothScroll.scrollTo(this.slider, this.adapter.getScrollToValue(value, behavior)).then(() => {
+        // @ts-ignore
         this.slider.style.scrollSnapType = this.adapter.scrollSnapType;
       });
     });
@@ -208,6 +211,7 @@ export class GallerySliderComponent implements OnInit, OnChanges, OnDestroy {
           this.slider.classList.add('g-sliding');
           panOffset = this.adapter.scrollValue;
           // Disable scroll-snap-type functionality
+          // @ts-ignore
           this.slider.style.scrollSnapType = 'unset';
         });
 
